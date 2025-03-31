@@ -1,5 +1,10 @@
 # React + Vite
 
+### Project Setup
+
+- Whenever you want to start the porject use `npm install` command to setup the environment.
+- To run the project use `npm run dev` command.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
