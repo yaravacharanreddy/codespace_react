@@ -3,7 +3,7 @@
 ## Project Setup
 
 ### Frontend
-- Whenever you want to start the porject use `npm install` command to setup the environment.
+- Whenever you want to start the project use `npm install` command to setup the environment.
 - To run the project use `npm run dev` command.
 
 ### Backend
