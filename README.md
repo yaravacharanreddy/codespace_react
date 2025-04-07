@@ -1,9 +1,15 @@
 # React + Vite
 
-### Project Setup
+## Project Setup
 
+### Frontend
 - Whenever you want to start the porject use `npm install` command to setup the environment.
 - To run the project use `npm run dev` command.
+
+### Backend
+- Navigate to backend directory using terminal.
+- Run the command `npm init -y`.
+- If you want to work with any packages, you can add them. eg., `npm install express`
 
 ---
 
