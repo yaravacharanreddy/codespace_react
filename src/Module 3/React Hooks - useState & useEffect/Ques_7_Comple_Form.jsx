@@ -7,16 +7,19 @@ const CompleteForm = () => {
     password: ''
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData(prevState => ({
-      ...prevState,
+  const [submittedData, setSubmittedData] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
       [name]: value
     }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmittedData(formData);
   };
 
   return (
@@ -46,10 +49,14 @@ const CompleteForm = () => {
         <button type="submit">Register</button>
       </form>
 
-      <h3>Entered Information:</h3>
-      <p><strong>Username:</strong> {formData.username}</p>
-      <p><strong>Email:</strong> {formData.email}</p>
-      <p><strong>Password:</strong> {formData.password}</p>
+      {submittedData && (
+        <div>
+          <h3>Entered Information:</h3>
+          <p><strong>Username:</strong> {submittedData.username}</p>
+          <p><strong>Email:</strong> {submittedData.email}</p>
+          <p><strong>Password:</strong> {submittedData.password}</p>
+        </div>
+      )}
     </div>
   );
 };
