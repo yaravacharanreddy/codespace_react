@@ -1,22 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './Module 4/React Router - Navigation in React/Home';
-import About from './Module 4/React Router - Navigation in React/About';
-import Contact from './Module 4/React Router - Navigation in React/Contact';
-import Subpage from './Module 4/React Router - Navigation in React/Subpage';
-import NavBar from './Module 4/React Router - Navigation in React/NavBar';
+import Counter from './Module 4/Redux Toolkit - State Management in React/Counter_Redux/Counter';
 
 const App = () => {
   return (
-    <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/subpage" element={<Subpage />} />
-      </Routes>
-    </Router>
+    <div>
+      <h1>Redux Toolkit Counter App</h1>
+      <Counter />
+    </div>
   );
 };
 
