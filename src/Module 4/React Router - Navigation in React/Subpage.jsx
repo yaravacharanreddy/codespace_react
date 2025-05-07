@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Subpage = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <h2>This is a Subpage with more information.</h2>;
+};
 
-export default Subpage
+export default Subpage;
