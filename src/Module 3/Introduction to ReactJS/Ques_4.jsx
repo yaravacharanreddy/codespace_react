@@ -1,17 +1,12 @@
-// JSX Rules
-// Description: Identify and correct errors in incorrect JSX syntax.
+import React from 'react';
 
-function Error() {
-    return (
-        <div>
-            <h1>Unclosed tag
-            <p>Self-closing tag example <img src="example.png"></img></p>
-            <ul>
-                <li>List item 1
-                <li>List item 2
-            </ul>
-        </div>
-    );
+const Ques4 = () => {
+  return (
+    <div>
+      <h1>Welcome to React!</h1>
+      <p>Enjoy learning ReactJS with correct JSX syntax!</p>
+    </div>
+  );
 }
 
-
+export default Ques4;
