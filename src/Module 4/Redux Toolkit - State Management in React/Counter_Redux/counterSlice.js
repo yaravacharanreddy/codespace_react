@@ -9,13 +9,25 @@ const counterSlice = createSlice({
   initialState,
   reducers: {
     increment: (state) => {
-      state.value += 1;
+      try {
+        state.value += 1;
+      } catch (error) {
+        console.error('Error in increment action:', error);
+      }
     },
     decrement: (state) => {
-      state.value -= 1;
+      try {
+        state.value -= 1;
+      } catch (error) {
+        console.error('Error in decrement action:', error);
+      }
     },
     reset: (state) => {
-      state.value = 0;
+      try {
+        state.value = 0;
+      } catch (error) {
+        console.error('Error in reset action:', error);
+      }
     },
   },
 });

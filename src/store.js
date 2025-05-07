@@ -5,6 +5,8 @@ const store = configureStore({
   reducer: {
     counter: counterReducer,
   },
+  // Optional: Adding a middleware to log actions for debugging.
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export default store;

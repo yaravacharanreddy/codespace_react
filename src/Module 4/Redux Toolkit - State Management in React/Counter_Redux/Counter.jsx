@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { increment, decrement, reset } from './counterSlice';
 
-const Counter = () => {
+const Counter = memo(() => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
+
+  const handleIncrement = () => dispatch(increment());
+  const handleDecrement = () => dispatch(decrement());
+  const handleReset = () => dispatch(reset());
 
   return (
     <div>
       <h2>Counter: {count}</h2>
-      <button onClick={() => dispatch(increment())}>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button>
-      <button onClick={() => dispatch(reset())}>Reset</button>
+      <button onClick={handleIncrement}>Increment</button>
+      <button onClick={handleDecrement}>Decrement</button>
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
-};
+});
 
 export default Counter;
