@@ -8,17 +8,11 @@
 import React, { useState, useEffect } from 'react';
 
 const LocalStorageInput = () => {
-  const [text, setText] = useState('');
+  const LOCAL_STORAGE_KEY = 'userInput';
+  const [text, setText] = useState(() => localStorage.getItem(LOCAL_STORAGE_KEY) || '');
 
   useEffect(() => {
-    const savedText = localStorage.getItem('userInput');
-    if (savedText) {
-      setText(savedText);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('userInput', text);
+    localStorage.setItem(LOCAL_STORAGE_KEY, text);
   }, [text]);
 
   const handleChange = (e) => {
@@ -34,7 +28,7 @@ const LocalStorageInput = () => {
         onChange={handleChange}
         placeholder="Type something..."
       />
-      <p>Current Input: {text}</p>
+      {text && <p>Stored Input: {text}</p>}
     </div>
   );
 };
