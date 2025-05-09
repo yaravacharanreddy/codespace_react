@@ -6,6 +6,8 @@ const AxiosData = () => {
   const [status, setStatus] = useState('loading');
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
+  const [retry, setRetry] = useState(0);
+
   const ITEMS_PER_PAGE = 5;
 
   useEffect(() => {
@@ -17,10 +19,14 @@ const AxiosData = () => {
         setStatus('success');
       })
       .catch((err) => {
-        setError(err.message);
+        setError(`Failed to fetch data. ${err.message}`);
         setStatus('error');
       });
-  }, []);
+  }, [retry]);
+
+  const handleRetry = () => {
+    setRetry((prev) => prev + 1);
+  };
 
   const paginatedData = useMemo(() => {
     const start = (page - 1) * ITEMS_PER_PAGE;
@@ -28,11 +34,18 @@ const AxiosData = () => {
   }, [data, page]);
 
   if (status === 'loading') return <p data-testid="loading">Loading...</p>;
-  if (status === 'error') return <p data-testid="error">Error: {error}</p>;
+  if (status === 'error') {
+    return (
+      <div data-testid="error">
+        <p>{error}</p>
+        <button onClick={handleRetry} data-testid="retry-button">Retry</button>
+      </div>
+    );
+  }
 
   return (
     <div data-testid="axios-data">
-      <h2>Axios Posts</h2>
+      <h2>Posts</h2>
       <ul>
         {paginatedData.map((post) => (
           <li key={post.id} data-testid={`post-${post.id}`}>

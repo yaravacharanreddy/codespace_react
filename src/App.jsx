@@ -13,12 +13,12 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Error caught in boundary:', error, errorInfo);
+    console.error('Error Boundary Caught:', error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      return <h2>Something went wrong.</h2>;
+      return <h2 data-testid="fallback-error">Something went wrong while loading the component.</h2>;
     }
     return this.props.children;
   }
@@ -26,10 +26,10 @@ class ErrorBoundary extends React.Component {
 
 function App() {
   return (
-    <div data-testid="app">
-      <h1>Axios Data Fetch</h1>
+    <div data-testid="app-container">
+      <h1 data-testid="app-title">Axios Data Fetch</h1>
       <ErrorBoundary>
-        <Suspense fallback={<div data-testid="loading-component">Loading component...</div>}>
+        <Suspense fallback={<div data-testid="loading-fallback">Loading component...</div>}>
           <AxiosData />
         </Suspense>
       </ErrorBoundary>
