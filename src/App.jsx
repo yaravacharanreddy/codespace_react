@@ -1,11 +1,11 @@
 import React from 'react';
-import SimpleForm from './Module 4/Advanced React Concepts/Forms/SimpleForm';
+import MultistepFrpm from './Module 4/Advanced React Concepts/Forms/MultistepFrpm';
 
 function App() {
   return (
     <div className="App">
-      <h1 style={{ textAlign: 'center' }}>React Form Demo</h1>
-      <SimpleForm />
+      <h1>Multi-Step Form</h1>
+      <MultistepFrpm />
     </div>
   );
 }
