@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 const FetchData = () => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState('loading');
   const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/posts')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch');
+        return res.json();
       })
       .then((json) => {
         setData(json);
-        setLoading(false);
+        setStatus('success');
       })
       .catch((err) => {
         setError(err.message);
-        setLoading(false);
+        setStatus('error');
       });
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  const renderedList = useMemo(() => {
+    return data.slice(0, 10).map((item) => (
+      <li key={item.id}>
+        <strong>{item.title}</strong>
+        <p>{item.body}</p>
+      </li>
+    ));
+  }, [data]);
+
+  if (status === 'loading') return <p>Loading...</p>;
+  if (status === 'error') return <p>Error: {error}</p>;
 
   return (
-    <div>
+    <div data-testid="post-list">
       <h2>Fetched Posts</h2>
-      <ul>
-        {data.slice(0, 10).map((item) => (
-          <li key={item.id}>
-            <strong>{item.title}</strong>
-            <p>{item.body}</p>
-          </li>
-        ))}
-      </ul>
+      <ul>{renderedList}</ul>
     </div>
   );
 };
