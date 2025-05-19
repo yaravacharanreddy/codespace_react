@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './Module 4/Redux Toolkit - State Management in React/Counter_Redux/counterSlice';
+import todosReducer from './Module 4/Redux Toolkit - State Management in React/Todos_Redux/todosSlice';
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer,
-  },
-  // Optional: Adding a middleware to log actions for debugging.
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+    todos: todosReducer
+  }
 });
 
 export default store;
