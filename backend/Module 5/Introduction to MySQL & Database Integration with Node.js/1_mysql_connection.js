@@ -1,3 +1,18 @@
-// Installing MySQL Package and Creating a Connection in Node.js
-// Description: install the MySQL3 package(use latest one), and create a connection to MySQL.
-// Create a database and create a Student table
+const mysql = require('mysql3');
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'testdb'
+});
+
+connection.connect(err => {
+  if (err) {
+    console.error('Connection failed:', err.stack);
+    return;
+  }
+  console.log('Connected as id ' + connection.threadId);
+});
+
+connection.end();
