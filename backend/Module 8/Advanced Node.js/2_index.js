@@ -1,9 +1,20 @@
-// Basic Clustering
-// Description: Implement a basic clustering setup to create multiple workers in a Node.js script.
+const cluster = require('cluster');
+const os = require('os');
+const http = require('http');
 
-// Steps:
-// 1. Check if the current process is the master using cluster.isMaster .
-// 2. Fork workers based on the number of CPU cores available using os.cpus().length .
-// 3. In each worker, create an HTTP server that listens on port 8000.
-// 4. Log messages to show when a worker is started or terminated.
-
+if (cluster.isMaster) {
+  const numCPUs = os.cpus().length;
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`Worker ${worker.process.pid} terminated`);
+    cluster.fork();
+  });
+} else {
+  console.log(`Worker ${process.pid} started`);
+  http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end(`Handled by worker ${process.pid}\n`);
+  }).listen(8000);
+}
