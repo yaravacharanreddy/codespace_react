@@ -2,7 +2,7 @@ const mysql = require('mysql3');
 
 function createConnection(retries = 5, delay = 2000) {
   return new Promise((resolve, reject) => {
-    const attemptConnection = (retryCount) => {
+    const tryConnect = (attemptsLeft) => {
       const connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
@@ -10,13 +10,13 @@ function createConnection(retries = 5, delay = 2000) {
         database: 'testdb'
       });
 
-      connection.connect(err => {
+      connection.connect((err) => {
         if (err) {
-          if (retryCount <= 0) {
-            reject('Connection failed after multiple attempts: ' + err.stack);
-            return;
+          if (attemptsLeft <= 0) {
+            reject('Failed to connect to MySQL after multiple attempts: ' + err.stack);
+          } else {
+            setTimeout(() => tryConnect(attemptsLeft - 1), delay);
           }
-          setTimeout(() => attemptConnection(retryCount - 1), delay);
         } else {
           console.log('Connected to MySQL as id ' + connection.threadId);
           resolve(connection);
@@ -24,24 +24,31 @@ function createConnection(retries = 5, delay = 2000) {
       });
     };
 
-    attemptConnection(retries);
+    tryConnect(retries);
   });
 }
 
 async function main() {
+  let connection;
   try {
-    const connection = await createConnection();
-
+    connection = await createConnection();
     connection.query('SELECT NOW() AS current_time', (err, results) => {
       if (err) {
-        console.error('Query error:', err);
+        console.error('Query failed:', err);
       } else {
         console.log('Query result:', results[0]);
       }
-    });
 
-  } catch (error) {
-    console.error(error);
+      connection.end((endErr) => {
+        if (endErr) {
+          console.error('Error closing connection:', endErr);
+        } else {
+          console.log('Connection closed successfully.');
+        }
+      });
+    });
+  } catch (err) {
+    console.error(err);
   }
 }
 
